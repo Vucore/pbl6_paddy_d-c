@@ -1,0 +1,9 @@
+The file /rice-disease-detection-docker/rice-disease-detection-docker/app/models/best_model_ConViT_v4.pth is a binary file that contains the pre-trained model weights. As such, it cannot be represented as text content. You would typically obtain this file from a model training process or download it from a model repository.
+
+If you need to create this file, you would need to either train the model and save it as `best_model_ConViT_v4.pth` or download it from a source where it is hosted. 
+
+For the purpose of this project, you can leave this file intentionally blank, or you can create it as a placeholder. 
+
+Here is the content for the file:
+
+# This file is intentionally left blank. It should contain the pre-trained model weights for the ConViT model.

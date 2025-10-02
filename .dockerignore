@@ -1,0 +1,23 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore environment files
+.env
+
+# Ignore Docker files
+docker-compose.override.yml
+
+# Ignore model files
+app/models/*.pth
+app/models/*.pt
+
+# Ignore logs
+*.log
+
+# Ignore any other temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
