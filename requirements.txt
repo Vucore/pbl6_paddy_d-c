@@ -1,0 +1,41 @@
+# Web Framework
+fastapi==0.103.1
+uvicorn==0.23.2
+python-multipart==0.0.6
+
+# Image Processing
+Pillow==10.0.0
+opencv-python==4.8.1.78
+
+# Data Science & ML
+numpy==1.25.2
+torch>=2.0.0
+torchvision>=0.15.0
+ultralytics>=8.0.0
+
+# Computer Vision & Deep Learning
+timm>=0.9.0
+
+# Telegram Bot
+python-telegram-bot>=20.0
+
+# Environment Management
+python-dotenv>=1.0.0
+
+# HTTP Requests
+requests>=2.31.0
+
+# Logging
+logging
+
+# Memory Management
+gc
+
+# Base64 encoding
+base64
+
+# I/O Operations
+io
+
+# Enums
+enum34; python_version<"3.4"
