@@ -5,6 +5,7 @@ import HowItWorks from "@/components/HowItWorks";
 import DiseaseCard from "@/components/DiseaseCard";
 import { motion, useAnimationFrame } from "framer-motion";
 import { useRef, useState } from "react";
+import { ModelResult } from "@shared/api";
 
 const diseases = [
   {
@@ -105,6 +106,8 @@ function InfiniteSlider({ diseases }) {
 
 
 export default function Index() {
+  const [result_1, setResult_1] = useState<ModelResult | null>(null);
+  const [result_2, setResult_2] = useState<ModelResult | null>(null);
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-green-50">
       <Header />
@@ -123,10 +126,12 @@ export default function Index() {
 
           <div className="w-full grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
             <div className="flex justify-center">
-              <UploadSection />
+              <UploadSection 
+                onResult_1={setResult_1}
+                onResult_2={setResult_2} />
             </div>
             <div className="flex justify-center">
-              <HowItWorks />
+              <HowItWorks result_1={result_1} result_2={result_2} />
             </div>
           </div>
         </section>
@@ -151,30 +156,30 @@ export default function Index() {
         </section>
       </main>
     </div>
-    
-  );
-}  
 
-  //  <div className="overflow-hidden w-full relative">
-  //           <motion.div
-  //             className="flex gap-8"
-  //             animate={{ x: ["0%", "-100%"] }}
-  //             transition={{
-  //               repeat: Infinity,
-  //               duration: 40, // tăng duration để trượt chậm, mượt
-  //               ease: "linear",
-  //             }}
-  //             whileHover={{ animationPlayState: "paused" }}
-  //             style={{ display: "flex" }}
-  //           >
-  //             {/* nhân đôi dữ liệu để tạo hiệu ứng liền mạch */}
-  //             {[...diseases, ...diseases].map((disease, index) => (
-  //               <div
-  //                 key={index}
-  //                 className="min-w-[320px] md:min-w-[360px] flex-shrink-0"
-  //               >
-  //                 <DiseaseCard key={index} {...disease} />
-  //               </div>
-  //             ))}
-  //           </motion.div>
-  //         </div>
+  );
+}
+
+//  <div className="overflow-hidden w-full relative">
+//           <motion.div
+//             className="flex gap-8"
+//             animate={{ x: ["0%", "-100%"] }}
+//             transition={{
+//               repeat: Infinity,
+//               duration: 40, // tăng duration để trượt chậm, mượt
+//               ease: "linear",
+//             }}
+//             whileHover={{ animationPlayState: "paused" }}
+//             style={{ display: "flex" }}
+//           >
+//             {/* nhân đôi dữ liệu để tạo hiệu ứng liền mạch */}
+//             {[...diseases, ...diseases].map((disease, index) => (
+//               <div
+//                 key={index}
+//                 className="min-w-[320px] md:min-w-[360px] flex-shrink-0"
+//               >
+//                 <DiseaseCard key={index} {...disease} />
+//               </div>
+//             ))}
+//           </motion.div>
+//         </div>

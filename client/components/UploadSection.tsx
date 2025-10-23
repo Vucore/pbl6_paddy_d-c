@@ -2,7 +2,11 @@ import { useState, useRef } from "react";
 import { Camera, Upload, UploadCloud, X } from "lucide-react";
 import { UploadResponse } from "@shared/api";
 import { motion } from "framer-motion";
-export default function UploadSection() {
+
+export default function UploadSection({ onResult_1, onResult_2 }: {
+  onResult_1: (result: UploadResponse["result_1"]) => void,
+  onResult_2?: (result: UploadResponse["result_2"]) => void
+}) {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -43,6 +47,9 @@ export default function UploadSection() {
       const data: UploadResponse = await res.json();
       console.log("✅ Upload success:", data);
       alert("Upload successful!");
+      if (data.result_1 && onResult_1) onResult_1(data.result_1);
+      // Nếu có kết quả cho mô hình khác, gọi onResult_2
+      if (data.result_2 && onResult_2) onResult_2(data.result_2);
     } catch (err) {
       console.error(err);
       alert("Upload failed!");
@@ -59,7 +66,7 @@ export default function UploadSection() {
     >
       {/* Header */}
       <div className="flex flex-col items-center text-center mb-8">
-         <motion.div
+        <motion.div
           className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-lime-500 flex items-center justify-center mb-6 shadow-lg"
           whileHover={{ rotate: 5, scale: 1.1 }}
           transition={{ type: "spring", stiffness: 200 }}
@@ -88,7 +95,7 @@ export default function UploadSection() {
           backgroundColor: "rgba(240,253,244,0.8)",
           boxShadow: "0 0 20px rgba(16,185,129,0.15)",
         }}
-        // transition={{ type: "spring", stiffness: 200, damping: 16 }}
+      // transition={{ type: "spring", stiffness: 200, damping: 16 }}
       >
         {preview ? (
           <div className="relative w-full">
@@ -111,14 +118,14 @@ export default function UploadSection() {
         ) : (
           <>
             <motion.div
-                animate={{ y: [0, -4, 0] }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                <UploadCloud className="w-11 h-9 text-emerald-500 mb-2" />
+              animate={{ y: [0, -4, 0] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <UploadCloud className="w-11 h-9 text-emerald-500 mb-2" />
             </motion.div>
             <p className="text-base font-medium text-gray-700 mb-1">
               Drag & drop your image here
@@ -143,9 +150,8 @@ export default function UploadSection() {
           whileHover={{ scale: 1.05, boxShadow: "0 6px 20px rgba(16,185,129,0.3)" }}
           whileTap={{ scale: 0.96 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          className={`flex-1 bg-gradient-to-br from-emerald-500 to-lime-500 text-white font-semibold text-base px-6 py-4 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all ${
-            uploading ? "opacity-70 cursor-not-allowed" : "hover:opacity-90"
-          }`}
+          className={`flex-1 bg-gradient-to-br from-emerald-500 to-lime-500 text-white font-semibold text-base px-6 py-4 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all ${uploading ? "opacity-70 cursor-not-allowed" : "hover:opacity-90"
+            }`}
         >
           <Upload className="w-4 h-4" />
           {uploading ? "Uploading..." : "Upload Image"}

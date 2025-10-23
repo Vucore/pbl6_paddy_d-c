@@ -7,11 +7,16 @@
 /**
  * Example response type for /api/demo
  */
+export interface ModelResult {
+  model: string;
+  disease: string;
+  confidence: number;
+  image: string;
+}
+
 export interface UploadResponse {
   message: string;
   originalname: string;
-  filename: string;
-  mimetype: string;
-  size: number;
-  path: string;
+  result_1: ModelResult;
+  result_2?: ModelResult;
 }

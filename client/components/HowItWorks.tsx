@@ -1,6 +1,6 @@
 import { Upload, Brain, ClipboardList } from "lucide-react";
 import { motion } from "framer-motion";
-
+import { ModelResult } from "@shared/api";
 const steps = [
   {
     icon: Upload,
@@ -25,7 +25,7 @@ const steps = [
   },
 ];
 
-export default function HowItWorks() {
+export default function HowItWorks({ result_1, result_2 }: { result_1: ModelResult | null, result_2: ModelResult | null }) {
   return (
     <div className="w-full max-w-[592px]">
       <h3 className="text-2xl font-bold text-gray-800 mb-6">How it works</h3>
@@ -64,8 +64,86 @@ export default function HowItWorks() {
           </motion.div>
         ))}
       </div>
+      <div className="flex flex-col md:flex-row gap-6 justify-center items-stretch mt-4">
+      {result_1 && (
+          <motion.div
+            className="flex-1 bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-transparent"
+            style={{ maxWidth: 592 }}
+            whileHover={{
+              scale: 1.03,
+              boxShadow: "0 10px 30px rgba(0,0,0,0.18)",
+              borderColor: "rgba(59,130,246,0.3)",
+            }}
+            transition={{ type: "spring", stiffness: 250, damping: 20 }}
+          >
+            <h4 className="text-base font-semibold text-gray-800 mb-4 text-center">
+              Detection Result Model 1
+            </h4>
+            <img
+              src={`data:image/jpeg;base64,${result_1.image}`}
+              alt={result_1.disease}
+              className="rounded-xl mb-4 bg-gray-100"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "400px",
+                height: "auto",
+                width: "auto",
+                display: "block",
+                margin: "0 auto",
+              }}
+            />
+            <div className="mt-4 flex flex-col items-center gap-2">
+              <div className="flex items-center gap-4">
+                <p className="text-sm text-gray-600 font-medium">{result_1.disease}</p>
+                <span className="bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-full">
+                  {Math.round(result_1.confidence * 100)}% Confidence
+                </span>
+              </div>
+              <div className="text-sm text-gray-500 font-medium">Model: {result_1.model}</div>
+            </div>
+          </motion.div>
+        )}
 
-      <motion.div
+        {result_2 && (
+          <motion.div
+            className="flex-1 bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-transparent"
+            style={{ maxWidth: 592 }}
+            whileHover={{
+              scale: 1.03,
+              boxShadow: "0 10px 30px rgba(0,0,0,0.18)",
+              borderColor: "rgba(34,197,94,0.3)",
+            }}
+            transition={{ type: "spring", stiffness: 250, damping: 20 }}
+          >
+            <h4 className="text-base font-semibold text-green-800 mb-4 text-center">
+              Detection Result Model 2
+            </h4>
+            <img
+              src={`data:image/jpeg;base64,${result_2.image}`}
+              alt={result_2.disease}
+              className="rounded-xl mb-4 bg-gray-100"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "400px",
+                height: "auto",
+                width: "auto",
+                display: "block",
+                margin: "0 auto",
+              }}
+            />
+            <div className="mt-4 flex flex-col items-center gap-2">
+              <div className="flex items-center gap-4">
+                <p className="text-sm text-gray-600 font-medium">{result_2.disease}</p>
+                <span className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">
+                  {Math.round(result_2.confidence * 100)}% Confidence
+                </span>
+              </div>
+              <div className="text-sm text-gray-500 font-medium">Model: {result_2.model}</div>
+            </div>
+          </motion.div>
+        )}
+      </div>
+      {/* <motion.div
         className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-transparent"
         whileHover={{
           scale: 1.03,
@@ -90,7 +168,7 @@ export default function HowItWorks() {
             92% Confidence
           </span>
         </div>
-      </motion.div>
+      </motion.div> */}
     </div>
   );
 }
